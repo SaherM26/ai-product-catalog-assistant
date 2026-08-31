@@ -34,7 +34,7 @@ app.add_middleware(
 )
 
 # Health check
-@app.get("/api/health")
+@app.get("/health")
 def health():
     return {
         "status": "ok"
@@ -49,7 +49,7 @@ def root():
     }
 
 # Process supplier file
-@app.post("/api/process")
+@app.post("/process")
 async def process_file(
     file: UploadFile = File(...)
 ):
@@ -218,7 +218,7 @@ async def process_file(
             ),
         }
 # Export validated products to Excel
-@app.post("/api/export")
+@app.post("/export")
 async def export_products(payload: dict):
     try:
         products = payload.get("products", [])

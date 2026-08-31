@@ -217,4 +217,72 @@ async def process_file(
                 "processing the file."
             ),
         }
-    
+# Export validated products to Excel
+@app.post("/api/export")
+async def export_products(payload: dict):
+    try:
+        products = payload.get("products", [])
+
+        if not products:
+            return {
+                "success": False,
+                "error": "No products available to export."
+            }
+
+        export_columns = [
+            "product_name",
+            "brand",
+            "uom",
+            "moq",
+            "price",
+            "hsn",
+            "needs_review",
+            "review_reason",
+        ]
+
+        rows = []
+
+        for product in products:
+            rows.append({
+                column: product.get(column)
+                for column in export_columns
+            })
+
+        df = pd.DataFrame(rows)
+
+        output = io.BytesIO()
+
+        with pd.ExcelWriter(
+            output,
+            engine="openpyxl"
+        ) as writer:
+            df.to_excel(
+                writer,
+                index=False,
+                sheet_name="Validated Products",
+            )
+
+        output.seek(0)
+
+        return StreamingResponse(
+            output,
+            media_type=(
+                "application/vnd.openxmlformats-officedocument."
+                "spreadsheetml.sheet"
+            ),
+            headers={
+                "Content-Disposition":
+                    'attachment; filename="validated_products.xlsx"'
+            },
+        )
+
+    except Exception as exc:
+        logger.exception(
+            "Excel export failed | error=%s",
+            str(exc),
+        )
+
+        return {
+            "success": False,
+            "error": "Could not generate the Excel file."
+        }

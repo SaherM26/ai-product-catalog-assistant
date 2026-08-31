@@ -28,7 +28,9 @@ type ProcessResponse = {
 
 type Filter = "all" | "valid" | "review";
 
-const API_URL = "/api";
+const API_URL = import.meta.env.DEV
+  ? "http://127.0.0.1:8000/api"
+  : "/api";
 
 function App() {
   const [selectedFile, setSelectedFile] =

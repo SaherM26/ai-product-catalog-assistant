@@ -70,9 +70,9 @@ button {
   cursor: pointer;
 }
 
-/* =========================
+/*
    APP
-========================= */
+ */
 
 .app-shell {
   min-height: 100vh;
@@ -80,9 +80,9 @@ button {
   flex-direction: column;
 }
 
-/* =========================
+/*
    TOP BAR
-========================= */
+ */
 
 .topbar {
   height: 66px;
@@ -152,9 +152,9 @@ button {
   box-shadow: 0 0 0 3px var(--success-soft);
 }
 
-/* =========================
+/*
    PAGE
-========================= */
+ */
 
 .page {
   width: min(1320px, 88vw);
@@ -162,9 +162,9 @@ button {
   padding: 44px 0 68px;
 }
 
-/* =========================
+/*
    HERO
-========================= */
+ */
 
 .hero {
   display: grid;
@@ -217,9 +217,9 @@ button {
   line-height: 1.6;
 }
 
-/* =========================
+/*
    WORKFLOW STRIP
-========================= */
+ */
 
 .workflow-strip {
   padding-bottom: 4px;
@@ -312,9 +312,9 @@ button {
   margin-bottom: 6px;
 }
 
-/* =========================
+/*
    CARDS
-========================= */
+ */
 
 .upload-card,
 .results-card {
@@ -356,9 +356,9 @@ button {
   line-height: 1.5;
 }
 
-/* =========================
+/*
    TEXT BUTTON
-========================= */
+ */
 
 .text-button {
   border: 0;
@@ -375,9 +375,9 @@ button {
   color: var(--primary);
 }
 
-/* =========================
+/*
    DROP ZONE
-========================= */
+ */
 
 .drop-zone {
   position: relative;
@@ -449,9 +449,9 @@ button {
   font-size: 12px;
 }
 
-/* =========================
+/*
    FILE META
-========================= */
+ */
 
 .file-meta {
   display: grid;
@@ -503,9 +503,9 @@ button {
   white-space: nowrap;
 }
 
-/* =========================
+/*
    UPLOAD ACTIONS
-========================= */
+ */
 
 .upload-actions {
   min-height: 40px;
@@ -554,9 +554,9 @@ button {
   text-align: right;
 }
 
-/* =========================
+/*
    PROCESSING
-========================= */
+ */
 
 .processing-panel {
   margin-top: 14px;
@@ -606,9 +606,9 @@ button {
   }
 }
 
-/* =========================
+/*
    MESSAGES
-========================= */
+ */
 
 .success-message,
 .error-message {
@@ -660,9 +660,9 @@ button {
   background: #f5cdc9;
 }
 
-/* =========================
+/*
    RESULTS
-========================= */
+ */
 
 .results-card {
   margin-top: 22px;
@@ -700,9 +700,9 @@ button {
   opacity: 0.9;
 }
 
-/* =========================
+/*
    RESULT FILE BAR
-========================= */
+ */
 
 .file-result-bar {
   display: grid;
@@ -722,9 +722,9 @@ button {
   border-right: 0;
 }
 
-/* =========================
+/*
    METRICS
-========================= */
+ */
 
 .metrics {
   display: grid;
@@ -775,9 +775,9 @@ button {
   color: var(--warning);
 }
 
-/* =========================
+/*
    REVIEW BANNER
-========================= */
+ */
 
 .review-banner {
   margin: 18px 26px 0;
@@ -827,9 +827,9 @@ button {
   line-height: 1.45;
 }
 
-/* =========================
+/*
    TABLE TOOLBAR
-========================= */
+ */
 
 .table-toolbar {
   padding: 18px 26px 12px;
@@ -911,9 +911,9 @@ button {
   font-family: var(--font-mono);
 }
 
-/* =========================
+/*
    TABLE
-========================= */
+ */
 
 .table-container {
   border-top: 1px solid var(--border);
@@ -1047,9 +1047,9 @@ td.hsn-cell {
   font-size: 13px;
 }
 
-/* =========================
+/*
    FOOTER
-========================= */
+ */
 
 .footer {
   margin-top: auto;
@@ -1067,9 +1067,9 @@ td.hsn-cell {
   font-size: 11.5px;
 }
 
-/* =========================
+/*
    RESPONSIVE
-========================= */
+ */
 
 @media (max-width: 980px) {
   .hero {

@@ -18,12 +18,9 @@ app = FastAPI(
     version="0.1.0",
 )
 
-
-# ---------------------------------------------------------
 # CORS
 # Allows the React frontend on localhost:5173
 # to communicate with the FastAPI backend on port 8000.
-# ---------------------------------------------------------
 
 app.add_middleware(
     CORSMiddleware,
@@ -36,22 +33,14 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-
-# ---------------------------------------------------------
 # Health check
-# ---------------------------------------------------------
-
-@app.get("/health")
+@app.get("/api/health")
 def health():
     return {
         "status": "ok"
     }
 
-
-# ---------------------------------------------------------
 # Root endpoint
-# ---------------------------------------------------------
-
 @app.get("/")
 def root():
     return {
@@ -59,17 +48,12 @@ def root():
         "status": "running",
     }
 
-
-# ---------------------------------------------------------
 # Process supplier file
-# ---------------------------------------------------------
-
-@app.post("/process")
+@app.post("/api/process")
 async def process_file(
     file: UploadFile = File(...)
 ):
     start_time = time.perf_counter()
-
     allowed_extensions = {
         ".pdf",
         ".xlsx",
@@ -77,23 +61,18 @@ async def process_file(
     }
 
     filename = file.filename or ""
-
     extension = Path(filename).suffix.lower()
-
     logger.info(
         "Processing started | file=%s | type=%s",
         filename,
         extension,
     )
-
     if extension not in allowed_extensions:
-
         logger.warning(
             "Unsupported file type | file=%s | type=%s",
             filename,
             extension,
         )
-
         return {
             "success": False,
             "error": (
@@ -101,23 +80,18 @@ async def process_file(
                 "Please upload a PDF or Excel file."
             ),
         }
-
     try:
-
         file_bytes = await file.read()
-
         if not file_bytes:
 
             logger.warning(
                 "Empty file received | file=%s",
                 filename,
             )
-
             return {
                 "success": False,
                 "error": "The uploaded file is empty.",
             }
-
         logger.info(
             "File loaded | file=%s | bytes=%d",
             filename,
@@ -195,7 +169,6 @@ async def process_file(
         }
     
     except errors.APIError as exc:
-
         if exc.code == 429:
 
             logger.warning(
@@ -207,7 +180,6 @@ async def process_file(
                 exc.code,
                 exc.message,
             )
-
             return {
                 "success": False,
                 "error": (
@@ -216,7 +188,6 @@ async def process_file(
                     "reached. Please try again later."
                 ),
             }
-
         logger.error(
             (
                 "Gemini API failure | "
@@ -226,7 +197,6 @@ async def process_file(
             exc.code,
             exc.message,
         )
-
         return {
             "success": False,
             "error": (
@@ -234,7 +204,6 @@ async def process_file(
                 "right now. Please try again later."
             ),
         }
-
     except Exception:
         logger.exception(
             "Unexpected processing failure | file=%s",
@@ -248,3 +217,4 @@ async def process_file(
                 "processing the file."
             ),
         }
+    

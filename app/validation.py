@@ -1,8 +1,6 @@
 import re
 from difflib import SequenceMatcher
-
 from .schemas import Product
-
 
 # Canonical UOM mapping
 CANONICAL_UOM = {
@@ -11,7 +9,6 @@ CANONICAL_UOM = {
     "pieces": "Piece",
     "nos": "Piece",
 }
-
 
 def normalize_uom(value: str | None) -> str | None:
     """
@@ -24,7 +21,6 @@ def normalize_uom(value: str | None) -> str | None:
 
     return CANONICAL_UOM.get(cleaned, value.strip())
 
-
 def normalize_price(value):
     """
     Convert formatted price values into numeric values.
@@ -34,7 +30,6 @@ def normalize_price(value):
         "1,245.00"   -> 1245.0
         187          -> 187.0
     """
-
     if value is None:
         return None
 
@@ -55,12 +50,10 @@ def normalize_price(value):
     except ValueError:
         return None
 
-
 def normalize_product(product: Product) -> Product:
     """
     Apply deterministic normalization to an extracted product.
     """
-
     return Product(
         product_name=(
             product.product_name.strip()
@@ -82,17 +75,13 @@ def normalize_product(product: Product) -> Product:
         ),
     )
 
-
 def validate_product(product: Product) -> dict:
     """
     Validate one product and identify issues that require
     human review.
     """
-
     product = normalize_product(product)
-
     review_reasons = []
-
     # Required product identity
     if not product.product_name:
         review_reasons.append(
@@ -135,7 +124,6 @@ def validate_product(product: Product) -> dict:
         ),
     }
 
-
 def combine_reason(
     existing: str | None,
     new_reason: str,
@@ -143,7 +131,6 @@ def combine_reason(
     """
     Append a review reason without duplicating it.
     """
-
     if not existing:
         return new_reason
 
@@ -158,19 +145,16 @@ def combine_reason(
 
     return "; ".join(existing_parts)
 
-
 def normalize_name_for_comparison(
     name: str,
 ) -> str:
     """
     Normalize harmless formatting differences while preserving
     meaningful product specifications.
-
     Examples:
         '16 sqmm' -> '16sqmm'
         '4-6 A'   -> '4-6a'
     """
-
     value = name.lower().strip()
 
     # Normalize whitespace.
@@ -205,7 +189,6 @@ def normalize_name_for_comparison(
     value = value.replace(" ", "")
 
     return value
-
 
 def extract_numeric_tokens(
     name: str,
@@ -248,12 +231,8 @@ def detect_near_duplicates(
 
             second_name = normalize_name_for_comparison(
                 second["product_name"]
-            )
-
-            # --------------------------------------------------
+            )           
             # Case 1: Exact normalized product-name match
-            # --------------------------------------------------
-
             if first_name == second_name:
 
                 # Different brands make this a potentially
@@ -283,11 +262,7 @@ def detect_near_duplicates(
                     )
 
                 continue
-
-            # --------------------------------------------------
             # Case 2: Very small formatting differences
-            # --------------------------------------------------
-
             similarity = SequenceMatcher(
                 None,
                 first_name,
